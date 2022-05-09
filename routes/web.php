@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\Post;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,6 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'posts' => Post::all()
     ]);
 });
 
@@ -37,3 +37,6 @@ Route::middleware([
 });
 
 
+Route::get('/post-details/{id}', function($id){
+    return Inertia::render('views/PostDetaillsView',['id'=>$id]);
+});

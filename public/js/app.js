@@ -21866,7 +21866,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      categories: []
+      categories: [],
+      toDetails: '/post-details/'
     };
   },
   created: function created() {
@@ -21897,10 +21898,10 @@ __webpack_require__.r(__webpack_exports__);
     search: function search(id) {
       var _this3 = this;
 
-      axios.get('/api/serch-posts').then(function (res) {
+      axios.get('/api/search-posts/' + id).then(function (res) {
         _this3.posts = res.data;
-        console.log('----------------------- posts ----------------------');
-        console.log(_this3.posts);
+        console.log('----------------------- posts search ----------------------');
+        console.log(res.data);
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -22031,7 +22032,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "postDetaillsView",
-  setup: function setup() {}
+  data: function data() {
+    return {
+      id: 0,
+      post: [],
+      newComment: ''
+    };
+  },
+  created: function created() {
+    this.id = this.$page.props.id;
+    this.getPost();
+  },
+  methods: {
+    getPost: function getPost() {
+      var _this = this;
+
+      axios.get('/api/post/' + this.id).then(function (res) {
+        _this.post = res.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    addComment: function addComment() {
+      axios.post('/api/add-comment', {
+        comment: this.newComment,
+        post_id: this.id
+      }).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -26327,8 +26359,9 @@ var _hoisted_9 = {
 var _hoisted_10 = {
   "class": "ml-2 text-xs"
 };
+var _hoisted_11 = ["href"];
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   "class": "w-full h-80",
   src: _images_tendanceIMG_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
   alt: ""
@@ -26336,21 +26369,21 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_12 = {
+var _hoisted_13 = {
   "class": "flex"
 };
-var _hoisted_13 = {
+var _hoisted_14 = {
   "class": "text-sm mt-3 mr-6 text-gray-600"
 };
-var _hoisted_14 = {
+var _hoisted_15 = {
   "class": "flex items-center mt-3 space-x-5"
 };
-var _hoisted_15 = {
+var _hoisted_16 = {
   href: "#",
   "class": "inline-flex items-center text-sm font-medium"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "w-4 h-4 mr-1.5",
   fill: "blue",
   viewBox: "0 0 20 20",
@@ -26388,36 +26421,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, "il ya " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.added), 1
     /* TEXT */
-    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      href: $data.toDetails + post.id
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.title), 1
+    /* TEXT */
+    )], 8
+    /* PROPS */
+    , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
       to: "/post-details"
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.title), 1
-        /* TEXT */
-        )];
-      }),
-      _: 2
-      /* DYNAMIC */
-
-    }, 1024
-    /* DYNAMIC_SLOTS */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-      to: "/post-details"
-    }, {
-      "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [_hoisted_11];
+        return [_hoisted_12];
       }),
       _: 1
       /* STABLE */
 
-    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_13, " Commnets " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.comments.length), 1
+    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, " Commnets " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.comments.length), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("aside", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fill=\"currentColor\" "), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.likes.length), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("aside", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fill=\"currentColor\" "), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(post.likes.length), 1
     /* TEXT */
     )])])])]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" posts ")])])], 64
+  ))])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -26650,12 +26676,142 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _images_logo_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../images/logo.svg */ "./resources/images/logo.svg");
+/* harmony import */ var _images_tendanceIMG_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../images/tendanceIMG.jpg */ "./resources/images/tendanceIMG.jpg");
+
+
 
 var _hoisted_1 = {
   "class": "w-3/5 flex flex-col mx-auto mt-6"
 };
+var _hoisted_2 = {
+  "class": "flex item-center"
+};
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "rounded-full mr-2",
+  src: _images_logo_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
+  width: "28",
+  height: "28",
+  alt: ""
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_4 = {
+  "class": "ml-2 text-xs font-bold"
+};
+var _hoisted_5 = {
+  "class": "ml-2 text-xs"
+};
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "w-full h-80",
+  src: _images_tendanceIMG_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
+  alt: ""
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_7 = {
+  "class": "flex"
+};
+var _hoisted_8 = {
+  "class": "text-sm mt-3 mr-6 text-gray-600"
+};
+var _hoisted_9 = {
+  "class": "flex items-center mt-3 space-x-5"
+};
+var _hoisted_10 = {
+  href: "#",
+  "class": "inline-flex items-center text-sm font-medium"
+};
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "w-4 h-4 mr-1.5",
+  fill: "blue",
+  viewBox: "0 0 20 20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
+})], -1
+/* HOISTED */
+);
+
+var _hoisted_12 = {
+  "class": "w-full bg-white p-4 mb-3 w-3/4 mx-auto"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "message",
+  "class": "block mb-2 text-sm font-medium text-gray-900"
+}, "Comment", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "w-full flex flex-col bg-white p-4 mb-3 w-3/4 mx-auto"
+};
+var _hoisted_15 = {
+  "class": "justify-between items-center mb-3 sm:flex"
+};
+var _hoisted_16 = {
+  "class": "mb-1 text-xs font-normal text-gray-700 sm:order-last sm:mb-0"
+};
+var _hoisted_17 = {
+  "class": "text-sm font-normal text-gray-700"
+};
+var _hoisted_18 = {
+  "class": "p-3 text-xs italic font-normal text-gray-700 bg-gray-50 rounded-lg border border-gray-200 dark:border-gray-500"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" posts "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full bg-white p-4 mb-3 w-3/4 mx-auto\">\r\n                    <div class=\"flex item-center\">\r\n                        <img class=\"rounded-full mr-2\" src=\"../../images/logo.svg\" width=\"28\" height=\"28\" alt=\"\">\r\n                        <span class=\"ml-2 text-xs font-bold\">idriss ait haddou</span>\r\n                        <span class=\"ml-2 text-xs\">il ya 5 minutes</span>\r\n                    </div>\r\n                    <p>\r\n                        Pulled up the carpets in newly purchased house to find this 12\r\n                    </p>\r\n                       <img class=\"w-full h-80\" src=\"../../images/tendanceIMG.jpg\" alt=\"\">\r\n                    <div class=\"flex\">\r\n                            <p class=\"text-sm mt-3 mr-6 text-gray-600\">\r\n                                Commnets 23\r\n                            </p>\r\n                            <aside class=\"flex items-center mt-3 space-x-5\">\r\n                                <a href=\"#\" class=\"inline-flex items-center text-sm font-medium\">\r\n                                    <svg class=\"w-4 h-4 mr-1.5\" fill=\"blue\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z\"></path></svg>\r\n                                    <span>78</span>\r\n                                </a>\r\n                                <a href=\"#\" class=\"inline-flex items-center text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 group\">\r\n                                    <svg class=\"w-4 h-4 mr-1.5\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z\"></path></svg>\r\n                                    4\r\n                                </a>\r\n                            </aside>\r\n                    </div>\r\n            </div>\r\n\r\n            <div class=\"w-full bg-white p-4 mb-3 w-3/4 mx-auto\">\r\n                <label for=\"message\" class=\"block mb-2 text-sm font-medium text-gray-900\">Comment</label>\r\n                <textarea id=\"message\" rows=\"4\" class=\"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg outline-0 border border-gray-100 dark:bg-gray-700 dark:placeholder-gray-400\" placeholder=\"Leave a comment...\"></textarea>\r\n                 <button type=\"button\" class=\"py-2.5 mt-2 outline-0 focus:drop-shadow px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200\">comment</button>\r\n            </div>\r\n            <div class=\"w-full flex flex-col bg-white p-4 mb-3 w-3/4 mx-auto\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" comments "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"p-4 bg-white mb-2 rounded-lg border border-gray-200 shadow-sm dark:bg-gray-700 dark:border-gray-600\">\r\n                        <div class=\"justify-between items-center mb-3 sm:flex\">\r\n                        <time class=\"mb-1 text-xs font-normal text-gray-700 sm:order-last sm:mb-0\">2 hours ago</time>\r\n                        <div class=\"text-sm font-normal text-gray-700 lex\">idriss ait haddou</div>\r\n                        </div>\r\n                    <div class=\"p-3 text-xs italic font-normal text-gray-700 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-600 dark:border-gray-500\">\r\n                        Hi ya'll! I wanted to share a webinar zeroheight is having regarding how to best measure your design system! This is the second session of our new webinar series on #DesignSystems discussions where we'll be speaking about Measurement.\r\n                    </div>\r\n                </div>\r\n                <div class=\"p-4 bg-white mb-2 rounded-lg border border-gray-200 shadow-sm dark:bg-gray-700 dark:border-gray-600\">\r\n                        <div class=\"justify-between items-center mb-3 sm:flex\">\r\n                        <time class=\"mb-1 text-xs font-normal text-gray-700 sm:order-last sm:mb-0\">2 hours ago</time>\r\n                        <div class=\"text-sm font-normal text-gray-700 lex\">idriss ait haddou</div>\r\n                        </div>\r\n                    <div class=\"p-3 text-xs italic font-normal text-gray-700 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-600 dark:border-gray-500\">\r\n                        Hi ya'll! I wanted to share a webinar zeroheight is having regarding how to best measure your design system! This is the second session of our new webinar series on #DesignSystems discussions where we'll be speaking about Measurement.\r\n                    </div>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end comments "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" posts "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.post, function (ispost) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: ispost.id,
+      "class": "w-full bg-white p-4 mb-3 w-3/4 mx-auto"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ispost.user.name), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ispost.added), 1
+    /* TEXT */
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ispost.title), 1
+    /* TEXT */
+    ), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_8, " Commnets " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ispost.comments.length), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("aside", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ispost.likes.length), 1
+    /* TEXT */
+    )])])])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.newComment = $event;
+    }),
+    id: "message",
+    rows: "4",
+    "class": "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg outline-0 border border-gray-100 dark:placeholder-gray-400",
+    placeholder: "Leave a comment..."
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newComment]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $options.addComment();
+    }),
+    type: "button",
+    "class": "py-2.5 mt-2 outline-0 focus:drop-shadow px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+  }, "comment")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" start comments "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.post[0].comments, function (iscomment) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: iscomment.id,
+      "class": "p-4 bg-white mb-2 rounded-lg border border-gray-200 shadow-sm dark:border-gray-600"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("time", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(iscomment.added), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(iscomment.username), 1
+    /* TEXT */
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(iscomment.comment), 1
+    /* TEXT */
+    )]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end comments ")])]);
 }
 
 /***/ }),

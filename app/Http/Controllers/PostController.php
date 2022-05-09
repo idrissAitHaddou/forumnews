@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\User;
 use Carbon\Carbon;
+use File;
 
 class PostController extends Controller
 {
@@ -43,9 +46,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function serchPosts()
+    public function serchPosts($id)
     {
-        $posts = Post::with('id');
+        $posts =  Post::with('user')->with('comments')->with('likes')->where('category_id' , $id)->get();
+        foreach($posts as $post){
+            $post->setAttribute('added' , Carbon::parse($post->created_at)->diffForHumans());
+        }
         return response()->json($posts);
     }
 
@@ -89,7 +95,35 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::with('user')->with('comments')->with('likes')->where('id' , $id)->get();
+        foreach($post as $Ispost){
+            $Ispost->setAttribute('added' , Carbon::parse($Ispost->created_at)->diffForHumans());
+            foreach($Ispost->comments as $ourComments){
+                $ourComments->setAttribute('added' , Carbon::parse($ourComments->created_at)->diffForHumans());
+                $user =  User::find($ourComments->user_id);
+                $ourComments->setAttribute('username' ,$user->name);
+            }
+        }
+        return response()->json($post);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addComment(Request $request)
+    {
+        $comment = Comment::create([
+            'comment' => $request->comment,
+            'post_id' => $request->post_id,
+            'user_id' => $request->post_id
+        ]);
+
+        $comment->save();
+
+        return response()->json(['status' => 'is added']);
     }
 
     /**

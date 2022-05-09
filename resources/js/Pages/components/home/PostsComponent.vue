@@ -17,9 +17,9 @@
                         <span class="ml-2 text-xs font-bold">{{post.user.name}}</span>
                         <span class="ml-2 text-xs">il ya {{post.added}}</span>
                     </div>
-                    <router-link to="/post-details"><p>
+                    <a :href='toDetails+post.id'><p>
                         {{post.title}}
-                    </p></router-link>
+                    </p></a>
                     <router-link to="/post-details">
                        <img class="w-full h-80" src="../../../../images/tendanceIMG.jpg" alt="">
                     </router-link>
@@ -36,9 +36,6 @@
                             </aside>
                     </div>
             </div>
-           <!-- posts -->
-
-
 
 
        </div>
@@ -52,6 +49,7 @@ export default {
       return{
            posts : [],
            categories : [],
+           toDetails : '/post-details/'
       }
     },
     created(){
@@ -78,11 +76,11 @@ export default {
         .catch(err => console.log(err))
         },
         search(id){
-             axios.get('/api/serch-posts')
+             axios.get('/api/search-posts/'+id)
             .then(res=>{
                 this.posts = res.data
-                console.log('----------------------- posts ----------------------')
-                console.log(this.posts)
+                console.log('----------------------- posts search ----------------------')
+                console.log(res.data)
 
             })
             .catch(err => console.log(err))
