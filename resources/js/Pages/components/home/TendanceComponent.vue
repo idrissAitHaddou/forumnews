@@ -1,37 +1,14 @@
 <template>
-    <p class="ml-2">Tendance aujourd'hui</p>
+
+    <p class="ml-2">Derrière les postes</p>
     <div class="flex item-center justify-between p-2">
-        <div id="tendance-article" class="relative w-1/4 h-48 rounded-lg mx-1 p-1">
-           <div class="absolute bottom-0 left-0 p-1">
-                <h1 class="text-xl text-[#FFD36E] font-black">Xenoblade Chronicles 3</h1>
-                <p class="text-[#FFD36E]">
-                    Xenoblade Chronicles 3 launches July 29th! (Nintendo
-                </p>
-           </div>
-        </div>
-        <div id="tendance-article" class="relative w-1/4 h-48 rounded-lg mx-1 p-1">
-           <div class="absolute bottom-0 left-0 p-1">
-                <h1 class="text-xl text-[#FFD36E] font-black">Xenoblade Chronicles 3</h1>
-                <p class="text-[#FFD36E]">
-                    Xenoblade Chronicles 3 launches July 29th! (Nintendo
-                </p>
-           </div>
-        </div>
-        <div id="tendance-article" class="relative w-1/4 h-48 rounded-lg mx-1 p-1">
-           <div class="absolute bottom-0 left-0 p-1">
-                <h1 class="text-xl text-[#FFD36E] font-black">Xenoblade Chronicles 3</h1>
-                <p class="text-[#FFD36E]">
-                    Xenoblade Chronicles 3 launches July 29th! (Nintendo
-                </p>
-           </div>
-        </div>
-        <div id="tendance-article" class="relative w-1/4 h-48 rounded-lg mx-1 p-1">
-           <div class="absolute bottom-0 left-0 p-1">
-                <h1 class="text-xl text-[#FFD36E] font-black">Xenoblade Chronicles 3</h1>
-                <p class="text-[#FFD36E]">
-                    Xenoblade Chronicles 3 launches July 29th! (Nintendo
-                </p>
-           </div>
+        <div v-for="postT in postsT" :key="postT.id" id="tendance-article" class="relative w-1/4 h-48 rounded-lg mx-1 p-1">
+               <div class="absolute bottom-0 left-0 p-1">
+                    <h1 class="text-xl text-[#FFD36E] font-black"> {{postT.title}}</h1>
+                    <p class="text-[#FFD36E]">
+                        {{postT.body.substr(0,10)}}...
+                    </p>
+               </div>
         </div>
         
        
@@ -39,9 +16,28 @@
 </template>
 <script>
 export default {
-    setup: () => ({
-        title: 'Tendance'
-    })
+    data(){
+      return{
+           ctr : 0,
+           postsT : []
+      }
+    },
+    mounted(){
+        this.getPostsT()
+    },
+    methods : {
+
+        getPostsT(){
+
+            axios.get('/api/last-posts')
+            .then(response=>{
+                this.postsT = response.data
+                console.log(this.postsT)
+
+            })
+            .catch(err => console.log(err))
+        }
+    }
 }
 </script>
 

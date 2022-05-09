@@ -27,26 +27,15 @@ export default {
         NavBar
     },
     mounted () {
-        console.log('------------------------------------')
         // console.log($page['props']['posts'])
         // console.log(this.$page.props.posts)
         // this.posts=this.$page.props.posts
         // console.log(this.posts)
-
-        console.log('------------------------------------')
-        this.getPosts()
         
         
     },
     methods : {
-        getPosts(){
-        axios.get('/api/posts')
-        .then(res=>{
-            this.posts = res.data
-            console.log(this.posts)
-        })
-        .catch(err => console.log(err))
-        }
+
     }
 }
 </script>

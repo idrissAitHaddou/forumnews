@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -14,7 +16,47 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        Carbon::setlocale('fr');
+        $posts = Post::with('user')->with('comments')->with('likes')->get();
+
+        foreach($posts as $post){
+            $post->setAttribute('added' , Carbon::parse($post->created_at)->diffForHumans());
+        }
+
+        return response()->json($posts);
+    }
+
+    /**
+     * Display a listing of 4 the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lastPost()
+    {
+        $posts = Post::take(4)->get();
+        return response()->json($posts);
+    }
+
+
+    /**
+     * Display a listing of 4 the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function serchPosts()
+    {
+        $posts = Post::with('id');
+        return response()->json($posts);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function categories()
+    {
+        $posts = Category::all();
         return response()->json($posts);
     }
 
