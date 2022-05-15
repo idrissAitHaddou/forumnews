@@ -7,6 +7,7 @@ import JetInput from '@/Jetstream/Input.vue';
 import JetCheckbox from '@/Jetstream/Checkbox.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import NavBar from '../components/shared/NavBar.vue'
 
 const form = useForm({
     name: '',
@@ -24,12 +25,10 @@ const submit = () => {
 </script>
 
 <template>
+<NavBar/>
     <Head title="Register" />
 
     <JetAuthenticationCard>
-        <template #logo>
-            <JetAuthenticationCardLogo />
-        </template>
 
         <JetValidationErrors class="mb-4" />
 

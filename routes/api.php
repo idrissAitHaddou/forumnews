@@ -27,3 +27,11 @@ Route::get('/categories', [PostController::class , 'categories']);
 
 Route::get('/post/{id}', [PostController::class , 'show']);
 Route::post('/add-comment', [PostController::class , 'addComment']);
+Route::post('/add-like', [PostController::class , 'addLike']);
+Route::post('/add-dislike', [PostController::class , 'disLike']);
+Route::post('/add-post', [PostController::class , 'store']);
+Route::post('/categories', [PostController::class , 'getCategories']);
+Route::get('/users', [PostController::class , 'getUsers']);
+Route::post('/deleteUser', [PostController::class , 'destroyUser']);
+Route::post('/delete-commit', [PostController::class , 'destroyCommit']);
+Route::post('/delete-post', [PostController::class , 'destroyPost']);

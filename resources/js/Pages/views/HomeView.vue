@@ -12,7 +12,6 @@
 import TendanceComponent from '../components/home/TendanceComponent.vue'
 import PostsComponent from '../components/home/PostsComponent.vue'
 import NavBar from '../components/shared/NavBar.vue'
-import axios from 'axios'
 export default {
     setup: () => ({
         title: 'Home page',
@@ -27,11 +26,6 @@ export default {
         NavBar
     },
     mounted () {
-        // console.log($page['props']['posts'])
-        // console.log(this.$page.props.posts)
-        // this.posts=this.$page.props.posts
-        // console.log(this.posts)
-        
         
     },
     methods : {

@@ -6,22 +6,32 @@
       <img src="../../../../images/logo.svg" class="mr-3 h-6 sm:h-9" width="100" height="100" alt="Flowbite Logo" />
   </a>
   <div class="flex items-center md:order-2">
-      <Link href="/create">
+      <Link href="/create" v-if="$page.props.user && $page.props.user.role=='user'">
+      <!-- v-if="$page.props.user.role=='user'" -->
         <button class="flex mr-6 text-sm text-gray-300 border border-sky-500 p-2 rounded-lg">
           Create Post
         </button>
       </Link>
-      <router-link to="/users">
+      <a href="/users" v-if="$page.props.user && $page.props.user.role=='admin'">
         <button class="flex mr-6 text-sm text-gray-300 border border-sky-500 p-2 rounded-lg">
           Users
         </button>
-      </router-link>
-       <button class="flex mr-6 text-sm text-gray-300 border border-sky-500 p-2 rounded-lg">
+      </a>
+      <a href="/login" v-if="!$page.props.user">
+         <button class="flex mr-6 text-sm text-gray-300 border border-sky-500 p-2 rounded-lg">
           Sign In
       </button>
-       <button class="flex mr-3 text-sm text-gray-300 border border-sky-500 p-2 text-white rounded-lg">
+      </a>
+       <a href="/register" v-if="!$page.props.user">
+         <button class="flex mr-3 text-sm text-gray-300 border border-sky-500 p-2 text-white rounded-lg">
           Sign Up
       </button>
+       </a>
+      <a href="/user/profile" v-if="$page.props.user">
+         <button class="flex mr-3 text-sm text-gray-300 border border-sky-500 p-2 text-white rounded-lg">
+           Profile
+          </button>
+       </a>
       <!-- <button class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" type="button" data-dropdown-toggle="dropdown">
         <span class="sr-only">Open user menu</span> -->
         <!-- <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">

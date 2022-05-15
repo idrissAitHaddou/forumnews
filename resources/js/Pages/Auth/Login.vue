@@ -7,6 +7,7 @@ import JetInput from '@/Jetstream/Input.vue';
 import JetCheckbox from '@/Jetstream/Checkbox.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import NavBar from '../components/shared/NavBar.vue'
 
 defineProps({
     canResetPassword: Boolean,
@@ -30,12 +31,11 @@ const submit = () => {
 </script>
 
 <template>
+<NavBar/>
     <Head title="Log in" />
 
     <JetAuthenticationCard>
-        <template #logo>
-            <JetAuthenticationCardLogo />
-        </template>
+      
 
         <JetValidationErrors class="mb-4" />
 

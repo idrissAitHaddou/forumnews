@@ -32,11 +32,19 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('views/HomeView');
     })->name('dashboard');
 });
 
 
 Route::get('/post-details/{id}', function($id){
     return Inertia::render('views/PostDetaillsView',['id'=>$id]);
+});
+
+Route::get('/create', function(){
+    return Inertia::render('views/CreateView');
+});
+
+Route::get('/users', function(){
+    return Inertia::render('views/UsersView');
 });
